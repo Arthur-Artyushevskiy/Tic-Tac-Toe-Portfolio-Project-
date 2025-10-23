@@ -1,9 +1,4 @@
-//
-//  Mini_Max.cpp
-//  Tic-Tac-Toe
-//
-//  Created by Arthur on 17/09/25.
-//
+
 #include <iostream>
 #include <string>
 #include <random>

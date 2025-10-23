@@ -1,9 +1,3 @@
-//
-//  Mini_Max.hpp
-//  Tic-Tac-Toe
-//
-//  Created by Arthur on 17/09/25.
-//
 
 #ifndef Mini_Max_hpp
 #define Mini_Max_hpp
@@ -15,7 +9,7 @@ using namespace std;
 class Mini_Max{
 public:
     string row, col;
-    tic_tac_toe tac{};
+    tic_tac_toe tac{'X', 'O'};
     char player = 'X', opponent = 'O';
     bool isMoveLeft(std::vector<std::vector<char>> matrix);
     int evaluate(std::vector<std::vector<char>> b);
