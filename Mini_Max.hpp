@@ -9,11 +9,11 @@ using namespace std;
 class Mini_Max{
 public:
     string row, col;
-    tic_tac_toe tac{'X', 'O'};
-    char player = 'X', opponent = 'O';
-    bool isMoveLeft(std::vector<std::vector<char>> matrix);
-    int evaluate(std::vector<std::vector<char>> b);
-    int minimax(std::vector<std::vector<char>> matrix, int depth, bool isMax);
-    void findBestMove(std::vector<std::vector<char>> matrix, int chance);
+    char player = 'O', opponent = 'X';
+    
+    bool isMoveLeft(const vector<vector<char>>& matrix);
+    int evaluate(const vector<vector<char>>& b);
+    int minimax(vector<vector<char>>& matrix, int depth, bool isMax);
+    void findBestMove(vector<vector<char>>& matrix, int chance);
 };
 #endif /* Mini_Max_hpp */

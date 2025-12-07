@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
+#include "Mini_Max.hpp"
 using namespace std;
 // an old tic_tac_toe class that allows the player to play an older version of the game
 class tic_tac_toe{
@@ -43,6 +44,7 @@ public:
     void run();
     void O_Move();
     void result();
+    int difficulty(string diff);
 };
 
 #endif /* tic_tac_toe_hpp */

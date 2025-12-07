@@ -158,7 +158,7 @@ bool tic_tac_toe::check_diag_left(){
 }
 //prints out the tic tac toe grid
 void tic_tac_toe::print() const{
-    cout << "  1     2     3" << endl;
+    cout << "   1     2     3" << endl;
     for(int row {0}; row < matrix.size(); row++){
         cout << row + 1;
         for (int col{0}; col < matrix[0].size(); col++) {
@@ -223,13 +223,35 @@ void tic_tac_toe::result(){
     if(full() && XWon == false && OWon == false){
         cout << "Tie!" << endl;
     }
-    else if (XWon){
+    else if (XWon && !OWon){
         cout << X << " Won!" << endl;
     }
-    else if(OWon){
+    else if(OWon && !XWon){
         cout << O << " Won!" << endl;
     }
 }
+
+int tic_tac_toe::difficulty(string diff){
+    int i_diff = diff[0] - '0';
+    switch (i_diff) {
+        case 1:
+            return 75;
+            break;
+        case 2:
+            return 50;
+            break;
+        case 3:
+            return 25;
+            break;
+        case 4:
+            return 0;
+            break;
+        default:
+            break;
+    }
+    return 0;
+}
+
 // main method for this class that allows you to run the game using only one command
 void tic_tac_toe::run(){
     string condition;
@@ -257,6 +279,8 @@ void tic_tac_toe::run(){
                     break;
                 }
                 
+                if(!win() && full()) break;
+                
                 if(XWon == 0){
                     O_Move();
                 }
@@ -274,4 +298,50 @@ void tic_tac_toe::run(){
         result();
         
     }
+    else if (condition == "Bot"){
+    
+    cout << "Here is the list of difficulties: " << endl;
+    cout << "1. Easy (75%)" << endl;
+    cout << "2. Medium (50%)" << endl;
+    cout << "3. Hard (25%)" << endl;
+    cout << "4. IMPOSSIBLE (0%)" << endl;
+    string game_mode;
+    cout << "Choose the difficulty you want to play (1-4): ";
+    getline(cin, game_mode);
+    
+    int diff_num = difficulty(game_mode);
+    
+        while( !full()){
+            if(!win()){
+                print();
+                cout << endl;
+                if(OWon == 0){
+                    X_Move();
+                    if(XWon == 0){
+                        cout << "Bot Started His Move!" << endl;
+                        cout << "Current Board:" << endl;
+                        Mini_Max bot;
+                        bot.findBestMove(matrix, diff_num);
+                        tic_change('O', bot.row, bot.col);
+                        cout << endl;
+                        win();
+                    }
+                }
+                else{
+                    break;
+                }
+                
+            }
+            else{
+                break;
+            }
+            
+        }
+    cout << endl;
+    print();
+    
+    result();
+    
+    }
+    
 }

@@ -57,7 +57,7 @@ void paladine::shift_mark(tic_tac_toe &grid ,bool Player_1, int count){
         }
     
     
-    grid.print();
+    //grid.print();
 }
 // checks if player chose an adjacent grid, if not then the method returns false
 bool paladine::adjacent(int row1, int col1,int row2,int col2){

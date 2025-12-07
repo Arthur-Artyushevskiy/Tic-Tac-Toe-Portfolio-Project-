@@ -8,9 +8,9 @@ void BattleTicTacToe::choose_mark(){
     
     cout << "Player 1: Choose your Mark: ";
     getline(cin, first);
-    
+   
     while(string_rules(first)){
-        cout << "Can't use numbers as marks and your mark should be only one character!"<< endl;
+        cout << "Can't use numbers and as marks and your mark should be only one character!"<< endl;
         cout << "Player 1: Choose your Mark: ";
         getline(cin, first);
     }
@@ -22,7 +22,7 @@ void BattleTicTacToe::choose_mark(){
     
     cout << "Player 2: Choose your Mark: ";
     getline(cin, second);
-    while(string_rules(second)){
+    while(string_rules(second) || second==first){
         cout << "Can't use numbers as marks and your mark should be only one character!"<< endl;
         cout << "Player 2: Choose your Mark: ";
         getline(cin, second);
@@ -38,6 +38,7 @@ bool BattleTicTacToe::string_rules(string word){
     if(word.length() > 1){
         return true;
     }
+    
     
     for(int i{0}; i < word.length(); i++){
         if(isdigit(word[i])){
@@ -111,7 +112,8 @@ void BattleTicTacToe::Battle(){
         }
         
         tic_tac_toe tac{'X', 'O'};
-        while(!battle.full()){
+        while(!battle.full())
+        {
             static int count = 0;
             if(battle.win()){
                 count = 0;
