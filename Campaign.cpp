@@ -130,8 +130,7 @@ void Campaign::startCampaign(){
         
         clearScreen();
         
-        Enemy boss("THE NECROMANCER", 200, 50, 20, necromancer_art, "Resurrect");
-        startBattle(boss);
+        
         
         
         // --- STORY START ---
@@ -215,7 +214,7 @@ void Campaign::startCampaign(){
         
         // --- BATTLE 5: BOSS ---
         //Enemy boss("THE NECROMANCER", 200, 50, 20, necromancer_art, "Resurrect");
-        
+        Enemy boss("THE NECROMANCER", 200, 50, 20, necromancer_art, "Resurrect");
         if(startBattle(boss)) {
             clearScreen();
             cout << "****************************************" << endl;
@@ -248,6 +247,7 @@ bool Campaign::startBattle(Enemy enemy){
     hero->displayStats();
     waitForEnter();
     bool isPlayerBlinded = false;
+    int parry_count = 0;
     while(hero->isAlive() && enemy.isAlive()){
         tic_tac_toe game{X, O};
         Mini_Max bot;
@@ -337,7 +337,6 @@ bool Campaign::startBattle(Enemy enemy){
                     
                 }
                 game.win();
-                cout << "Player's current status: Won(" << game.XWon << ")" << endl;
                 if(game.XWon == 0){
                     cout << enemy.name << " is thinking..." << endl;
                     
@@ -415,7 +414,8 @@ bool Campaign::startBattle(Enemy enemy){
         clearScreen();
         
         
-        if(enemy.specialAbilityName == "Parry" && (rand() % 100 > difficultyChance())){
+        if(enemy.specialAbilityName == "Parry" && (rand() % 100 > difficultyChance()) && parry_count < 3){
+            parry_count++;
             cout << "The Dark Knight parried your attack!" << endl;
             cout << "He attacks YOU!" << endl;
             hero->takeDamage(enemy.attack - 10);
@@ -441,7 +441,7 @@ bool Campaign::startBattle(Enemy enemy){
         // the hero takes the damage if the enemy is not a dark paladin and not the nectomancer then the hero takes damage
         //takeDamage(game, enemy);
         
-      }
+    }
     if(hero->isAlive()) {
         cout << "You defeated " << enemy.name << "!" << endl;
        
@@ -587,7 +587,6 @@ void Campaign::eventShop(bool isUrbanArea){
         while(hero->money < 0){
             hero->money += ruralProductCounts[choice];
             cout << endl << "Can't have negative money!" << endl;
-            cout << "Balance: " << hero->money << endl;
             cout << "Choose one of the options (1-5): ";
             getline(cin, choice);
             
@@ -635,13 +634,11 @@ void Campaign::eventShop(bool isUrbanArea){
         bool negativeMoney = hero->money < 0;
         if(!incorrectInput){
             hero->spendMoney(ruralProductCounts[choice]);
-            cout << "Balance: " << hero->money << endl;
             negativeMoney = hero->money < 0;
             hero->money += urbanProductCounts[choice];
         }
         else{
             hero->spendMoney(ruralProductCounts["4"]);
-            cout << "Balance: " << hero->money << endl;
             negativeMoney = hero->money < 0;
             hero->money += ruralProductCounts["4"];
         }
@@ -661,7 +658,6 @@ void Campaign::eventShop(bool isUrbanArea){
         while(hero->money < 0){
             hero->money += ruralProductCounts[choice];
             cout << endl << "Can't have negative money!" << endl;
-            cout << "Balance: " << hero->money << endl;
             cout << "Choose one of the options (1-5): ";
             getline(cin, choice);
             
