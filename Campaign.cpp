@@ -427,7 +427,7 @@ bool Campaign::startBattle(Enemy enemy){
             takeDamage(game, enemy);
         }
         
-        if(enemy.name == "THE NECROMANCER" && game.OWon == 1){
+        if(enemy.name == "THE NECROMANCER" && game.OWon == 1 && (rand() % 100 > difficultyChance())){
             hero->takeDamage(enemy.attack);
             
             int healAmount = enemy.attack / 2;
